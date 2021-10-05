@@ -1,7 +1,7 @@
-#### Dockerize a Wordpress 5 Project
+### Dockerize a Wordpress 5 Project
 Dockerize a project with 3 services: Wordpress, phpmyadmin, mysql.
 
-##To Run the services
+## To Run the services
 Go on docker-compose.yml folder and run:
 docker-compose up
 
