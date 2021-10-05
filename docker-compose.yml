@@ -52,7 +52,7 @@ services:
   #define phpmyadmin service
   phpmyadmin:
     #dependency with database service
-     depends_on:
+    depends_on:
        - db
     #specify the image with tag version
     image: phpmyadmin:latest
