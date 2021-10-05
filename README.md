@@ -13,7 +13,7 @@ For wordpress : localhost:8000
 Username : user123
 Password : mdp123
 
-##Docker images used with version
+## Docker images used with version
 phpmyadmin: latest  (https://hub.docker.com/_/phpmyadmin)
 mysql: latest  (https://hub.docker.com/_/mysql)
 wordpress: latest  (https://hub.docker.com/_/wordpress)
