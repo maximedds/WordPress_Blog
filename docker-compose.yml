@@ -1,51 +1,84 @@
+#define docker-compose version
 version: '3.3'
 
+#list of services
 services:
+  #database service
   db:
+   #define container name
+   container_name: mysql
+   #specify the image with tag version
    image: mysql:latest
+   #volume montage
    volumes:
      - db_data:/var/lib/mysql
+   #restart the container when there is failure
    restart: always
+   #define the newtork where the service will work
    networks:
      - wordpressnet
+   #set environment variables
    environment:
      MYSQL_ROOT_PASSWORD: wordpress_blog
      MYSQL_DATABASE: tp_docker
      MYSQL_USER: user123
      MYSQL_PASSWORD: mdp123
 
+  #wordpress service
   wordpress:
+   #dependency with database service
+   depends_on:
+       - db
+   #specify the image with tag version
    image: wordpress:latest
+   #volume montage
    volumes:
      - wordpress_data:/var/www/html
+    #redirect port
    ports:
      - "8000:80"
+   #restart the container when there is failure
    restart: always
+   #define the newtork where the service will work
    networks:
      - wordpressnet
+   #set environment variables
    environment:
      WORDPRESS_DB_HOST: db:3306
      WORDPRESS_DB_USER: user123
      WORDPRESS_DB_PASSWORD: mdp123
      WORDPRESS_DB_NAME: tp_docker
-
+ 
+  #define phpmyadmin service
   phpmyadmin:
+    #dependency with database service
+     depends_on:
+       - db
+    #specify the image with tag version
     image: phpmyadmin:latest
-    volumes:
-      - phpmyadmin_data:/var/www/html
+    #redirect port
     ports:
       - "8080:80"
+    #restart the container when there is failure
     restart: always
+    #define the newtork where the service will work
+    networks:
+     - wordpressnet
+    #set environment variables
     environment: 
       PHPMYADMIN_ROOT_PASSWORD: wordpress_blog
       PHPMYADMIN_USER: user123
       PHPMYADMIN_DATABASE: tp_docker
 
+
+#network declaration 
 networks:
   wordpressnet:
     driver: bridge
 
+#volumes declaration
 volumes:
+  #database volume
   db_data: {}
+  #wordpress volume
   wordpress_data: {}
-  phpmyadmin_data: {}  
